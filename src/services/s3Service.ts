@@ -19,13 +19,13 @@ export async function getNamesOfAllXlsxFiles(): Promise<string[]> {
             Bucket: BUCKET_NAME,
         });
         const response = await s3.send(command);
-        if (!response.Contents) {
+        if (response.Contents === undefined || response.Contents.length === 0) {
             return [];
         }
 
         const xlsxFiles = response.Contents
             .filter(obj => obj.Key && obj.Key.toLowerCase().endsWith('.xlsx'))
-            .map(obj => obj.Key);
+            .map(obj => obj.Key as string);
         return xlsxFiles;
     } catch (error) {
         throw error;

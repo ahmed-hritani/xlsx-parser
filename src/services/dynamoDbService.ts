@@ -19,13 +19,10 @@ const dynamoDB = DynamoDBDocumentClient.from(dynamoDBClient);
 // Not sure if we should make this atomic to write (with transactions or keep it as is)
 // I will go with keeping it simple, also, I will make it prefer robustness over accuracy
 // so it does not throw errors, but just continues on failure
-export async function addProductRows(productRows: ProductRow[]): Promise<void> {
+export async function uploadRows(productRows: ProductRow[], batchSize = 25): Promise<void> {
     if (productRows.length === 0) {
         return;
     }
-
-    // DynamoDB batch write can handle max 25 items at a time
-    const batchSize = 25;
 
     // This could also be run in paraller with Promise.all, with a batch limit too
     for (let i = 0; i < productRows.length; i += batchSize) {

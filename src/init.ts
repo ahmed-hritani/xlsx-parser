@@ -1,7 +1,7 @@
 import { ConfigVars } from "./config";
 import { S3Client, HeadBucketCommand, CreateBucketCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { DynamoDBClient, DescribeTableCommand, CreateTableCommand } from "@aws-sdk/client-dynamodb";
-import * as fs from'fs';
+import * as fs from 'fs';
 import * as path from 'path';
 
 const s3 = new S3Client({
@@ -34,19 +34,24 @@ export async function ensureLocalResources() {
         } else {
             throw err;
         }
-    } finally {
-        // Upload the file if it doesn't exist in the bucket
-        const filePath = path.resolve(process.cwd(), "produktkatalog_coding_challenge.xlsx");
+    }
+
+    // Upload file to S3 bucket
+    const FILE_NAME = 'produktkatalog.xlsx';
+    try {
+        const filePath = path.resolve(process.cwd(), FILE_NAME);
         const fileStream = fs.createReadStream(filePath);
 
         await s3.send(
             new PutObjectCommand({
                 Bucket: BUCKET_NAME,
-                Key: "produktkatalog_coding_challenge.xlsx",
+                Key: FILE_NAME,
                 Body: fileStream,
             })
         );
-        console.log(`File "produktkatalog_coding_challenge.xlsx" uploaded to S3 bucket "${BUCKET_NAME}".`);
+        console.log(`File ${FILE_NAME} uploaded to S3 bucket "${BUCKET_NAME}".`);
+    } catch (err: any) {
+        console.error(`Failed to upload file to S3: ${err.message}`);
     }
 
     // Check/create DynamoDB table

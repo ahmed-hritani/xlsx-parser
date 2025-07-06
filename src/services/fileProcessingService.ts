@@ -20,7 +20,7 @@ const trimAndClean: dataProcessingFunction = (row) => {
             let value = cleanedRow[key].trim();
             // Step 2: Remove invalid characters
             // I was not sure what characters to remove, so I went with ASCII printable characters
-            // and some German special characters
+            // and German special characters
             value = value.replace(/[^\x20-\x7EÄÖÜäöüß]/g, '');
             // Step 3: Remove any HTML tags
             value = value.replace(/<[^>]*>/g, '');
@@ -63,7 +63,7 @@ const mergeRepeatedFields: dataProcessingFunction = (row) => {
 export async function processXlsxFile(
     buffer: Buffer,
     sheetName = 'Produktkatalog',
-    proccesingFunctions = [trimAndClean, mergeRepeatedFields]
+    processingFunctions = [trimAndClean, mergeRepeatedFields]
 ): Promise<ProductRow[]> {
     const workbook = XLSX.read(buffer, { type: 'buffer' });
     if (!workbook.Sheets[sheetName]) {
@@ -78,7 +78,7 @@ export async function processXlsxFile(
                 continue;
             }
             let inProgressRow = { ...rawRow } as ProductRow;
-            for (const processingFunction of proccesingFunctions) {
+            for (const processingFunction of processingFunctions) {
                 inProgressRow = processingFunction(inProgressRow);
             }
             validRows.push(inProgressRow);
