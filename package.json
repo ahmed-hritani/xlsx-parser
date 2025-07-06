@@ -1,0 +1,27 @@
+{
+  "name": "xlsx-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/handlers/cliHandler.ts",
+    "init": "ts-node src/init.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "@types/node": "^24.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.840.0",
+    "@aws-sdk/client-s3": "^3.842.0",
+    "@aws-sdk/lib-dynamodb": "^3.840.0",
+    "dotenv": "^17.0.1",
+    "xlsx": "^0.18.5"
+  }
+}

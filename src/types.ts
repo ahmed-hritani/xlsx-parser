@@ -1,0 +1,36 @@
+export enum Fields {
+    ArticleNumber = 'Artikelnummer',
+    ProductName = 'Produktname',
+    PZN = 'PZN',
+    EAN = 'EAN',
+    GTIN = 'GTIN',
+    BiocideRegNo = 'Biozid_Reg_Nr',
+    EuApprovalNumber = 'EU_Zulassungsnummer',
+    MinimumOrderQuanitity = 'Minimum_Bestellmenge',
+    MaximumOrderQuantity = 'Maximal_Bestellmenge',
+    Multiplier = 'Multiplikator',
+    MaximumOrderQuantityPerMonth = 'Maximal_Bestellmenge_pro_Monat',
+    Catiegory = 'Kategorie',
+    ListingPrice = 'Listenpreis',
+    SeasonOneOrderQuantity = 'Staffel_1_Bestellmenge',
+    SeasonOnePrice = 'Staffel_1_Preis',
+    SeasonTwoOrderQuantity = 'Staffel_2_Bestellmenge',
+    SeasonTwoPrice = 'Staffel_2_Preis',
+    SeasonThreeOrderQuantity = 'Staffel_3_Bestellmenge',
+    SeasonThreePrice = 'Staffel_3_Preis',
+    SeasonFourOrderQuantity = 'Staffel_4_Bestellmenge',
+    SeasonFourPrice = 'Staffel_4_Preis',
+    SeasonFiveOrderQuantity = 'Staffel_5_Bestellmenge',
+    SeasonFivePrice = 'Staffel_5_Preis',
+    DosageForm = 'Darreichungsform',
+    SalesAcural = 'Verkaufsabgrenzung',
+    TypesOfApplication = 'Anwendungsarten',
+    AnimalSpecies = 'Tierart',
+    ActiveIngredient = 'Wirkstoff',
+    ProductDescription = 'Beschreibung des Produkts',
+    Manufacturer = 'Hersteller',
+}
+
+export type ProductRow = {
+    [key in Fields]: string;
+};
